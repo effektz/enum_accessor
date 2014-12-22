@@ -10,7 +10,7 @@ module EnumAccessor
       # Normalize keys
       dict = case keys
       when Array
-        Hash[keys.map.with_index{|i,index| [i, index] }]
+        Hash[keys.map.with_index{|i,index| [i, (index + options[:index_start].to_i)] }]
       when Hash
         keys
       else

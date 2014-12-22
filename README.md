@@ -135,6 +135,24 @@ Thanks to the translation support, forms just work as you expect. Pass an invert
   = f.select :gender, User.human_genders.invert
 ```
 
+## Define Start Index
+
+Normal enum_accessor properties start at an index of 0
+```ruby
+enum_accessor :currency, [:usd, :eur]
+
+> Business.currencies
+=> {"usd"=>0, "eur"=>1} 
+```
+
+It is possible to pass an option called `index_start` to tell enum_accessor what index the first value should start on
+```ruby
+enum_accessor :currency, [:usd, :eur], { index_start: 1 }
+
+> Business.currencies
+=> {"usd"=>1, "eur"=>2} 
+```
+
 ## Changelog
 
 - v2.0.0:
