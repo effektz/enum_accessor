@@ -1,16 +1,28 @@
 require 'enum_accessor/version'
 require 'enum_accessor/railtie'
+require 'enum_accessor/configuration'
 require 'active_support'
 
 module EnumAccessor
   extend ActiveSupport::Concern
 
+  class << self
+    attr_accessor :configuration
+  end
+
+  def self.configure
+    yield(configuration)
+  end
+
+  self.configuration = EnumAccessor::Configuration.new
+
   module ClassMethods
+
     def enum_accessor(column, keys, options={})
       # Normalize keys
       dict = case keys
       when Array
-        Hash[keys.map.with_index{|i,index| [i, (index + options[:index_start].to_i)] }]
+        Hash[keys.map.with_index{|i,index| [i, (index + EnumAccessor.configuration.start_index)] }]
       when Hash
         keys
       else

@@ -144,10 +144,10 @@ enum_accessor :currency, [:usd, :eur]
 > Business.currencies
 => {"usd"=>0, "eur"=>1} 
 ```
+If you need to change the starting index, you can configure EnumAccessor to start the index at either 0 or 1.
 
-It is possible to pass an option called `index_start` to tell enum_accessor what index the first value should start on
 ```ruby
-enum_accessor :currency, [:usd, :eur], { index_start: 1 }
+EnumAccessor.configuration.start_index = 1
 
 > Business.currencies
 => {"usd"=>1, "eur"=>2} 
